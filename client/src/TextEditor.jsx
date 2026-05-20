@@ -1,25 +1,16 @@
-import { useEffect, useRef } from 'react'
+import { useCallback } from 'react'
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 
 export default function TextEditor() {
-  const wrapperRef = useRef(null)
-  const quillRef = useRef(null)
+  const wrapperRef = useCallback(wrapper=>{
+    if(wrapper == null) return
 
-  useEffect(() => {
-    const wrapper = wrapperRef.current
     wrapper.innerHTML = ''
-
     const editor = document.createElement('div')
-    wrapper.appendChild(editor)
-
-    quillRef.current = new Quill(editor, { theme: 'snow' })
-
-    return () => {
-      quillRef.current = null
-      wrapper.innerHTML = ''
-    }
+    wrapper.append(editor)
+    new Quill(editor, { theme: 'snow' })
   }, [])
 
-  return <div ref={wrapperRef} />
+  return <div id="container" ref={wrapperRef}></div>
 }
