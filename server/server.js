@@ -3,9 +3,8 @@ const Document = require("./Document");
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/google-docs-clone")
-  .catch((error) => {
-    console.error(error);
-  });
+  .then(() => console.log("MongoDB Connected!"))
+  .catch((err) => console.error("Database connection error:", err));
 
 const io = require("socket.io")(3001, {
   cors: {
